@@ -1,0 +1,81 @@
+---
+import { Image } from 'astro:assets'
+
+import { ArrowUpTrayIcon } from '@heroicons/react/24/solid'
+import dayjs from 'dayjs'
+
+import Button from '@/components/Button.astro'
+import Heading from '@/components/Heading.astro'
+import { config } from '@/config'
+import blueskyIcon from '@/images/icon-bluesky.svg'
+import mastodonIcon from '@/images/icon-mastodon.svg'
+import misskeyIcon from '@/images/icon-misskey.png'
+import xIcon from '@/images/icon-x.svg'
+import Layout from '@/layouts/Layout.astro'
+import { getNewsPosts } from '@/libs/posts'
+
+export const getStaticPaths = async () => {
+  const posts = await getNewsPosts()
+
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }))
+}
+
+const { post } = Astro.props
+const props = {
+  title: post.title,
+  ogp: { type: 'article' },
+}
+const url = Astro.url.toString()
+---
+
+<Layout {...props}>
+  <header class="">
+    <Heading level="1">{post.title}</Heading>
+    <time datetime={post.createdAt} class="mt-4 block text-sm text-gray-700">
+      {dayjs(post.createdAt).format(config.format.datetime)}
+    </time>
+  </header>
+  <article class="prose my-10">
+    <div set:html={post.content} />
+  </article>
+  <footer class="flex flex-wrap justify-center gap-x-2 gap-y-4">
+    <Button href="/news" class="">全てのお知らせを見る</Button>
+    <div class="flex flex-wrap items-center gap-2">
+      <ArrowUpTrayIcon className="size-6" />
+      {
+        [
+          {
+            href: `https://misskeyshare.link/share.html?text=${encodeURI(post.title)}&url=${encodeURI(url)}`,
+            src: misskeyIcon,
+            label: 'Misskeyでシェア',
+          },
+          {
+            href: `https://donshare.net/share.html?text=${encodeURI(post.title)}&url=${encodeURI(url)}`,
+            src: mastodonIcon,
+            label: 'Mastodonでシェア',
+          },
+          {
+            href: `https://bsky.app/intent/compose?text=${encodeURI(post.title)}%0a${encodeURI(url)}`,
+            src: blueskyIcon,
+            label: 'Blueskyでシェア',
+          },
+          {
+            href: `https://twitter.com/intent/tweet?text=${encodeURI(post.title)}&url=${encodeURI(url)}`,
+            src: xIcon,
+            label: 'Xでシェア',
+          },
+        ].map(({ href, src }) => (
+          <a
+            href={href}
+            target="_blank"
+            class="inline-grid size-12 place-content-center rounded-full bg-white p-3">
+            <Image src={src} alt="" class="" />
+          </a>
+        ))
+      }
+    </div>
+  </footer>
+</Layout>

@@ -1,0 +1,25 @@
+---
+import { Image } from 'astro:assets'
+
+import { twMerge } from 'tailwind-merge'
+
+import { config } from '@/config'
+import logo from '@/images/logo.jpg'
+
+const { class: className } = Astro.props
+---
+
+<footer class={twMerge('py-10 text-center', className)}>
+  <Image src={logo} alt={config.siteMetadata.name} class="mx-auto max-w-3xs" />
+  <nav
+    class="flex items-center justify-center gap-x-4"
+    aria-label="ナビゲーションリンク">
+    {
+      config.menu.map(({ label, href }) => (
+        <a href={href} class="">
+          {label}
+        </a>
+      ))
+    }
+  </nav>
+</footer>

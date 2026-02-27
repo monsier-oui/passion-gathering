@@ -1,0 +1,52 @@
+---
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
+import type { Page } from 'astro'
+import { tv } from 'tailwind-variants'
+
+import Button from '@/components/Button.astro'
+import type { NewsPost } from '@/libs/posts'
+
+export interface Props {
+  path: string
+  page: Page<NewsPost>
+}
+
+const { page } = Astro.props
+
+const paginationVariants = tv({
+  slots: {
+    base: 'mt-16 grid grid-cols-[1fr_auto_1fr] items-center gap-6',
+    icon: 'size-4',
+  },
+})
+const { base, icon } = paginationVariants()
+---
+
+{
+  page.lastPage > 1 && (
+    <nav class={base()} aria-label="ページネーション">
+      <Button
+        href={page.url.prev}
+        level="secondary"
+        aria-label="前のページへ"
+        aria-disabled={!page.url.prev}>
+        <ChevronLeftIcon className={icon()} />
+      </Button>
+      <span class="">
+        <span class="sr-only">現在のページ</span>
+        {page.currentPage}
+        <span aria-hidden="true"> / </span>
+        <span class="sr-only">総ページ数</span>
+        {page.lastPage}
+      </span>
+      <Button
+        href={page.url.next}
+        level="secondary"
+        class="-col-end-1"
+        aria-disabled={!page.url.next}
+        aria-label="次のページへ">
+        <ChevronRightIcon className={icon()} />
+      </Button>
+    </nav>
+  )
+}

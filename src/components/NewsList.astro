@@ -1,0 +1,33 @@
+---
+import dayjs from 'dayjs'
+import { twMerge } from 'tailwind-merge'
+
+import { config } from '@/config'
+import type { NewsPost } from '@/libs/posts'
+
+interface Props {
+  posts: NewsPost[]
+  class?: string
+}
+
+const { posts, class: className } = Astro.props
+---
+
+<ul
+  class={twMerge(
+    'grid grid-cols-[1fr_auto] gap-x-2 divide-y divide-gray-300',
+    className
+  )}>
+  {
+    posts.map((post) => (
+      <li class="col-span-full grid grid-cols-subgrid py-4">
+        <a href={`/news/${post.id}/`} class="hover:underline">
+          {post.title}
+        </a>
+        <time class="" datetime={post.createdAt}>
+          {dayjs(post.createdAt).format(config.format.date)}
+        </time>
+      </li>
+    ))
+  }
+</ul>

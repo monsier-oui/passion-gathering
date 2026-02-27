@@ -1,0 +1,22 @@
+---
+import type { GetStaticPathsOptions } from 'astro'
+
+import NewsList from '@/components/NewsList.astro'
+import Pagination from '@/components/Pagination.astro'
+import { config } from '@/config'
+import Layout from '@/layouts/Layout.astro'
+import { getNewsPosts } from '@/libs/posts'
+
+export const getStaticPaths = async ({ paginate }: GetStaticPathsOptions) => {
+  const posts = await getNewsPosts()
+
+  return paginate(posts, { pageSize: config.pageSize })
+}
+
+const { page } = Astro.props
+---
+
+<Layout>
+  <NewsList posts={page.data} />
+  <Pagination path="/news" page={page} />
+</Layout>

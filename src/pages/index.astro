@@ -1,0 +1,116 @@
+---
+import { Image } from 'astro:assets'
+
+import Button from '@/components/Button.astro'
+import Heading from '@/components/Heading.astro'
+import NewsList from '@/components/NewsList.astro'
+import { config } from '@/config'
+import logo from '@/images/logo.jpg'
+import mainvisual from '@/images/mainvisual.png'
+import Layout from '@/layouts/Layout.astro'
+import { getNewsPosts } from '@/libs/posts'
+
+const latestNews = (await getNewsPosts()).slice(0, 3)
+---
+
+<Layout>
+  <div class="relative" slot="first-view">
+    <Image
+      src={mainvisual}
+      alt=""
+      loading="eager"
+      fetchpriority="high"
+      class="mx-auto h-screen w-full max-w-(--max-width) object-cover"
+      style={{ '--max-width': `${mainvisual.width}px` }}
+    />
+    <Image
+      src={logo}
+      alt=""
+      loading="eager"
+      fetchpriority="high"
+      class="absolute top-0 left-0 w-[min(40vw,var(--container-3xs))]"
+    />
+  </div>
+
+  <div class="space-y-20">
+    {
+      latestNews.length > 0 && (
+        <section>
+          <Heading>お知らせ</Heading>
+          <NewsList posts={latestNews} class="mt-6" />
+          <Button href="/news/" class="mt-4">
+            もっと見る
+          </Button>
+        </section>
+      )
+    }
+
+    <section id="about">
+      <Heading>イベントについて</Heading>
+      <div class="prose mt-6">
+        <p>イベントについての説明文が入ります</p>
+      </div>
+    </section>
+
+    <section id="outline">
+      <Heading>イベント概要</Heading>
+      <div class="prose mt-6">
+        <dl class="">
+          {
+            [
+              {
+                title: 'イベント名',
+                content: config.siteMetadata.name,
+              },
+              {
+                title: '主催',
+                content: (
+                  <Fragment>
+                    <a href="https://side.misskey.productions">
+                      さいどみすきー
+                    </a>
+                  </Fragment>
+                ),
+              },
+              {
+                title: '内容',
+                content: config.siteMetadata.description,
+              },
+              {
+                title: '会場',
+                content: 'ピクリエ',
+              },
+              {
+                title: '募集スペース数',
+                content: '○○スペース',
+              },
+              {
+                title: '参加料金',
+                content: '一般参加: 無料、サークル参加: ○○円',
+              },
+              {
+                title: '参加条件',
+                content: 'TBD',
+              },
+            ].map(({ title, content }) => (
+              <Fragment>
+                <dt class="">{title}</dt>
+                <dd class="">{content}</dd>
+              </Fragment>
+            ))
+          }
+        </dl>
+      </div>
+    </section>
+
+    <section id="terms">
+      <Heading>規約</Heading>
+      <div class="prose mt-6">
+        <ol class="list-decimal">
+          <li>ほげほげ</li>
+          <li>ふがふが</li>
+        </ol>
+      </div>
+    </section>
+  </div>
+</Layout>
