@@ -1,4 +1,5 @@
 import alpinejs from '@astrojs/alpinejs'
+import cloudflare from '@astrojs/cloudflare'
 import react from '@astrojs/react'
 import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'astro/config'
@@ -20,4 +21,5 @@ export default defineConfig({
     remarkPlugins: [remarkBreaks],
   },
   integrations: [react(), alpinejs()],
+  adapter: cloudflare(),
 })
