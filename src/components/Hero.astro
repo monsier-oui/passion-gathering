@@ -1,0 +1,74 @@
+---
+import { Image } from 'astro:assets'
+
+import { twMerge } from 'tailwind-merge'
+
+import hero from '@/images/hero.png'
+import logo from '@/images/logo.jpg'
+---
+
+<div
+  class="js-trigger-totop relative mx-auto w-full max-w-(--max-width) place-content-center overflow-clip"
+  style={{ '--max-width': `${hero.width / 2}px` }}>
+  <Image
+    src={hero}
+    alt=""
+    width={hero.width}
+    height={hero.height}
+    widths={[1080, 1280, 2560, hero.width]}
+    sizes={`(min-width: 640px) 1280px, (min-width: 1280px) 2560px, (min-width: ${hero.width / 2}px) ${hero.width}px, min(100vw, 640px)`}
+    loading="eager"
+    fetchpriority="high"
+    class="mx-auto h-screen w-full object-cover sm:aspect-35/25 sm:h-auto"
+  />
+  <div
+    id="sd-random"
+    class="@container absolute inset-0 m-auto aspect-9/16 h-full w-auto sm:aspect-3/4">
+    <!-- TODO: できれば左右に揺らす -->
+    {
+      Array.from({ length: 3 }).map((_, i) => (
+        <div
+          class={twMerge(
+            'absolute aspect-square h-auto w-[30cqi]',
+            i === 0 && 'top-1/5 left-0 -rotate-16',
+            i === 1 && 'top-1/2 right-0 -translate-y-1/2',
+            i === 2 && 'bottom-1/5 left-0 rotate-16'
+          )}>
+          <img alt="" class="animate-swaying" />
+        </div>
+      ))
+    }
+  </div>
+  <Image
+    src={logo}
+    alt=""
+    loading="eager"
+    fetchpriority="high"
+    class="absolute top-0 left-0 w-[40cqi] sm:w-[min(20cqi,var(--container-3xs))]"
+  />
+</div>
+
+<script>
+  async function showRandomSdImages() {
+    const res = await fetch('/sd-images.json')
+    if (!res.ok) return
+
+    const urls = (await res.json()) as string[]
+    const count = Math.min(3, urls.length)
+    if (count === 0) {
+      document.getElementById('sd-random')?.style.setProperty('display', 'none')
+      return
+    }
+    const shuffled = [...urls].sort(() => Math.random() - 0.5)
+    const picked = shuffled.slice(0, count)
+    document.querySelectorAll('#sd-random img').forEach((el, i) => {
+      if (el instanceof HTMLImageElement) {
+        if (picked[i]) {
+          el.src = picked[i]
+          el.alt = ''
+        }
+      }
+    })
+  }
+  showRandomSdImages()
+</script>

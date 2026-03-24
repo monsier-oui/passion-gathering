@@ -9,10 +9,10 @@ import logo from '@/images/logo.jpg'
 const { class: className } = Astro.props
 ---
 
-<footer class={twMerge('py-10 text-center', className)}>
+<footer class={twMerge('relative py-10 text-center', className)}>
   <Image src={logo} alt={config.siteMetadata.name} class="mx-auto max-w-3xs" />
   <nav
-    class="flex items-center justify-center gap-x-4"
+    class="mt-5 flex items-center justify-center gap-x-4"
     aria-label="ナビゲーションリンク">
     {
       config.menu.map(({ label, href }) => (

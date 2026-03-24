@@ -1,0 +1,50 @@
+---
+import { Image } from 'astro:assets'
+
+import { twMerge } from 'tailwind-merge'
+
+import yamamura from '@/images/sd/50-ken.png'
+
+const { class: className } = Astro.props
+---
+
+<a
+  id="to-top"
+  href="#top"
+  class={twMerge(
+    'sticky bottom-0 py-2 ml-auto flex flex-col items-center gap-y-2 h-fit w-fit translate-y-(--y) transition-transform ease-in-out duration-700',
+    className
+  )}
+  style={{ '--y': '100%' }}>
+  <span class="bg-primary relative rounded-full px-2 py-1.5 text-xs text-white">
+    上へ戻ります
+    <span
+      class="absolute inset-x-0 top-full m-auto aspect-square w-2 bg-inherit"
+      style="clip-path: polygon(0 0, 100% 0, 50% 100%)"
+      aria-hidden="true"></span>
+  </span>
+  <Image src={yamamura} alt="" class="w-[min(20vw,160px)]" />
+</a>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const toTop = document.getElementById('to-top')
+    if (!toTop) return
+
+    const trigger = document.querySelector('.js-trigger-totop')
+    if (!trigger) {
+      toTop.style.setProperty('--y', '0')
+
+      return
+    }
+
+    const io = new IntersectionObserver((entries) => {
+      if (!entries[0].isIntersecting) {
+        toTop.style.setProperty('--y', '0')
+      } else {
+        toTop.style.setProperty('--y', '100%')
+      }
+    })
+    io.observe(trigger)
+  })
+</script>

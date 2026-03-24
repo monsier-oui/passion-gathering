@@ -6,6 +6,7 @@ import { SEO } from 'astro-seo'
 
 import Footer from '@/components/Footer.astro'
 import Nav from '@/components/Nav.astro'
+import ToTop from '@/components/ToTop.astro'
 import { config } from '@/config'
 import logo from '@/images/logo.jpg'
 
@@ -48,13 +49,13 @@ const LogoElement = pathname === '/' ? 'h1' : 'span'
       }}
     />
   </head>
-  <body class="">
-    <div class="@container mx-auto max-w-screen-2xl">
-      <div class="col-start-1 -col-end-1">
-        <slot name="first-view" />
-      </div>
+  <body class="bg-gray-100">
+    <div class="">
+      <slot name="first-view" />
+    </div>
+    <div class="@container mx-auto max-w-screen-2xl overflow-x-clip">
       <div
-        class="grid grid-flow-dense items-start sm:grid-cols-[1fr_clamp(var(--breakpoint-xs),40cqi,var(--breakpoint-sm))_1fr]">
+        class="relative grid grid-flow-dense items-start md:grid-cols-[1fr_var(--spacing-main)_1fr]">
         <LogoElement
           class="@3xl:sticky @3xl:top-0 @3xl:translate-y-[calc(50vh-50%)] @3xl:px-[3cqi]">
           <a href="/">
@@ -70,11 +71,76 @@ const LogoElement = pathname === '/' ? 'h1' : 'span'
           <Nav />
         </div>
         <main
-          class="min-h-screen bg-gray-100 px-[clamp(calc(var(--spacing)*5),3cqi,calc(var(--spacing)*10))] py-10">
+          class="min-h-screen bg-white px-[clamp(calc(var(--spacing)*5),3cqi,calc(var(--spacing)*10))] py-10">
           <slot />
         </main>
         <Footer class="@3xl:col-start-2" />
+        <ToTop class="@3xl:-col-end-1" />
       </div>
     </div>
   </body>
 </html>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // ページ内リンクのスムーススクロール
+    const anchorLinks = document.querySelectorAll('a[href*="#"]')
+    for (const element of Array.from(anchorLinks)) {
+      element.addEventListener('click', (event) => {
+        handleClick(event)
+      })
+    }
+  })
+
+  const scrollToTarget = (element: HTMLElement) => {
+    const isPrefersReduced = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches
+    const behavior = isPrefersReduced ? 'instant' : 'smooth'
+
+    element.scrollIntoView({ behavior })
+  }
+
+  const focusTarget = (element: HTMLElement) => {
+    element.focus({ preventScroll: true })
+    if (document.activeElement !== element) {
+      element.setAttribute('tabindex', '-1')
+      element.focus({ preventScroll: true })
+    }
+  }
+
+  const handleClick = (event: Event) => {
+    if (!(event instanceof MouseEvent) || event.button !== 0) return
+
+    const clickTarget = event.target
+    if (!(clickTarget instanceof Element)) return
+
+    const currentLink = clickTarget.closest<HTMLAnchorElement>('a[href*="#"]')
+    if (!currentLink) return
+
+    const hash = currentLink.hash
+    if (
+      !hash ||
+      currentLink.getAttribute('role') === 'tab' ||
+      currentLink.getAttribute('role') === 'button' ||
+      currentLink.getAttribute('data-smooth-scroll') === 'disabled'
+    ) {
+      return
+    }
+
+    const targetId = decodeURIComponent(hash.slice(1))
+    const targetElement =
+      (document.getElementById(targetId) as HTMLElement | null) ||
+      ((hash === '#top' && document.body) as HTMLElement | false)
+    if (targetElement instanceof HTMLElement) {
+      event.preventDefault()
+
+      scrollToTarget(targetElement)
+      focusTarget(targetElement)
+
+      if (!(hash === '#top')) {
+        history.pushState({}, '', hash)
+      }
+    }
+  }
+</script>

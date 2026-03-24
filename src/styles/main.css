@@ -18,7 +18,23 @@
   --color-gray-900: var(--color-neutral-900);
   --color-gray-950: var(--color-neutral-950);
 
-  --color-primary: var(--color-gray-600);
+  --color-primary: oklch(0.7661 0.1213 178.04);
+  --color-primary-light: oklch(94.118% 0.05361 181.923);
+
+  --spacing-main: clamp(var(--breakpoint-xs), 40cqi, var(--breakpoint-sm));
+
+  --animate-swaying: 1.5s steps(1) 0.5s infinite normal both running swaying;
+  @keyframes swaying {
+    0% {
+      rotate: -1deg;
+    }
+    50% {
+      rotate: 1deg;
+    }
+    100% {
+      rotate: -1deg;
+    }
+  }
 }
 
 @layer base {
