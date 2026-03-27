@@ -4,7 +4,7 @@ import { Image } from 'astro:assets'
 import { twMerge } from 'tailwind-merge'
 
 import hero from '@/images/hero.png'
-import logo from '@/images/logo.jpg'
+import logo from '@/images/logo.svg'
 ---
 
 <div
@@ -23,8 +23,7 @@ import logo from '@/images/logo.jpg'
   />
   <div
     id="sd-random"
-    class="@container absolute inset-0 m-auto aspect-9/16 h-full w-auto sm:aspect-3/4">
-    <!-- TODO: できれば左右に揺らす -->
+    class="@container absolute inset-0 m-auto h-full w-full sm:aspect-3/4 sm:w-auto">
     {
       Array.from({ length: 3 }).map((_, i) => (
         <div
@@ -34,7 +33,11 @@ import logo from '@/images/logo.jpg'
             i === 1 && 'top-1/2 right-0 -translate-y-1/2',
             i === 2 && 'bottom-1/5 left-0 rotate-16'
           )}>
-          <img alt="" class="animate-swaying" />
+          <div
+            class="animate-pitter-patter"
+            style={{ animationDelay: `${i * 100}ms` }}>
+            <img alt="" class="animate-swaying" />
+          </div>
         </div>
       ))
     }
@@ -44,7 +47,7 @@ import logo from '@/images/logo.jpg'
     alt=""
     loading="eager"
     fetchpriority="high"
-    class="absolute top-0 left-0 w-[40cqi] sm:w-[min(20cqi,var(--container-3xs))]"
+    class="absolute top-0 left-0 w-[40cqi] p-3 sm:w-[min(20cqi,var(--container-3xs))]"
   />
 </div>
 

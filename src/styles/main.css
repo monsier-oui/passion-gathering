@@ -23,7 +23,7 @@
 
   --spacing-main: clamp(var(--breakpoint-xs), 40cqi, var(--breakpoint-sm));
 
-  --animate-swaying: 1.5s steps(1) 0.5s infinite normal both running swaying;
+  --animate-swaying: 1.5s steps(1) 0.5s infinite running swaying;
   @keyframes swaying {
     0% {
       rotate: -1deg;
@@ -33,6 +33,29 @@
     }
     100% {
       rotate: -1deg;
+    }
+  }
+  --animate-pitter-patter: 1s steps(1) pitter-patter;
+  @keyframes pitter-patter {
+    0% {
+      translate: 0 40%;
+      rotate: -8deg;
+    }
+    25% {
+      translate: -10% 30%;
+      rotate: 8deg;
+    }
+    50% {
+      translate: 0 20%;
+      rotate: -8deg;
+    }
+    75% {
+      translate: 10% 10%;
+      rotate: 8deg;
+    }
+    100% {
+      translate: 0 0;
+      rotate: 0deg;
     }
   }
 }

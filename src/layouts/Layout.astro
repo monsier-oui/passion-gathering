@@ -8,7 +8,7 @@ import Footer from '@/components/Footer.astro'
 import Nav from '@/components/Nav.astro'
 import ToTop from '@/components/ToTop.astro'
 import { config } from '@/config'
-import logo from '@/images/logo.jpg'
+import logo from '@/images/logo.svg'
 
 export interface Props {
   title?: string
@@ -41,11 +41,14 @@ const LogoElement = pathname === '/' ? 'h1' : 'span'
           {
             title,
             type: 'website',
-            image: '',
+            image: `${Astro.site?.origin}/ogp.png`,
             url: Astro.site?.origin + Astro.url.pathname,
           },
           ogp
         ),
+      }}
+      extend={{
+        link: [{ rel: 'icon', href: '/facicon.svg' }],
       }}
     />
   </head>
