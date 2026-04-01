@@ -46,9 +46,14 @@ const LogoElement = pathname === '/' ? 'h1' : 'span'
           },
           ogp
         ),
+        optional: {
+          siteName: config.siteMetadata.name,
+        },
       }}
-      extend={{
-        link: [{ rel: 'icon', href: '/facicon.svg' }],
+      twitter={{
+        creator: '@Pgathering315',
+        card: 'summary',
+        title,
       }}
     />
   </head>
