@@ -1,6 +1,7 @@
 ---
+import { Image } from 'astro:assets'
+
 import Button from '@/components/Button.astro'
-import Heading from '@/components/Heading.astro'
 import Hero from '@/components/Hero.astro'
 import NewsList from '@/components/NewsList.astro'
 import { config } from '@/config'
@@ -13,85 +14,110 @@ const latestNews = (await getNewsPosts()).slice(0, 3)
 <Layout>
   <Hero slot="first-view" />
 
-  <div class="space-y-20">
-    {
-      latestNews.length > 0 && (
-        <section>
-          <Heading>お知らせ</Heading>
-          <NewsList posts={latestNews} class="mt-6" />
-          <Button href="/news/" class="mt-4">
-            もっと見る
-          </Button>
-        </section>
-      )
-    }
+  {
+    latestNews.length > 0 && (
+      <section>
+        <h2 class="sr-only">お知らせ</h2>
+        <NewsList posts={latestNews} />
+        <Button href="/news/" class="mt-4">
+          もっと見る
+        </Button>
+      </section>
+    )
+  }
+  <div class="prose prose-h2:mt-20 prose-h3:mt-15 mt-20">
+    <h2 id="about">イベントについて</h2>
+    <p>
+      P@assion Gathering は、『アイドルマスター
+      SideM』の二次創作を対象とした非公式Webオンリーイベントです。<br />
+      原作・公式関係者とは一切関係ありません。
+    </p>
+    <p>
+      本イベントは、Misskeyサーバー「さいどみすきー」の運営メンバーが主催・運営しています。<br
+      />
+      なお、さいどみすきーの利用有無に関わらず、どなたでもご参加いただけます。<br
+      />
+      <Button href="https://side.misskey.productions" class="no-underline">
+        さいどみすきーを見る
+      </Button>
+    </p>
 
-    <section id="about">
-      <Heading>イベントについて</Heading>
-      <div class="prose mt-6">
-        <p>イベントについての説明文が入ります</p>
-      </div>
-    </section>
+    <h3 id="requirements">参加対象</h3>
+    <p>以下の内容であればご参加いただけます。</p>
+    <ul>
+      <li>『アイドルマスター SideM』の二次創作作品</li>
+      <li>漫画、イラスト、小説、考察・評論、Web展示作品、ハンドメイド など</li>
+      <li>
+        カップリング指定のある作品も参加可能です
+        <ul>
+          <li>
+            カップリングの有無は問いません（オールキャラ、ユニット、単体、カップリング作品すべて可）
+          </li>
+        </ul>
+      </li>
+      <li>
+        プチオンリーの実施OK
+        <ul>
+          <li>
+            サークル内企画、テーマ展示など、常識の範囲内で自由に行っていただいて構いません
+          </li>
+          <li>プチオンリーの応募はこちらのフォームからお願いします。</li>
+        </ul>
+      </li>
+    </ul>
+    <p>
+      また、主催・運営母体である「さいどみすきー」に関連したネタ・表現についても、SideM二次創作の範囲内であれば問題ありません。
+    </p>
 
-    <section id="outline">
-      <Heading>イベント概要</Heading>
-      <div class="prose mt-6">
-        <dl class="">
-          {
-            [
-              {
-                title: 'イベント名',
-                content: config.siteMetadata.name,
-              },
-              {
-                title: '主催',
-                content: (
-                  <Fragment>
-                    <a href="https://side.misskey.productions">
-                      さいどみすきー
-                    </a>
-                  </Fragment>
-                ),
-              },
-              {
-                title: '内容',
-                content: config.siteMetadata.description,
-              },
-              {
-                title: '会場',
-                content: 'ピクリエ',
-              },
-              {
-                title: '募集スペース数',
-                content: '○○スペース',
-              },
-              {
-                title: '参加料金',
-                content: '一般参加: 無料、サークル参加: ○○円',
-              },
-              {
-                title: '参加条件',
-                content: 'TBD',
-              },
-            ].map(({ title, content }) => (
-              <Fragment>
-                <dt class="">{title}</dt>
-                <dd class="">{content}</dd>
-              </Fragment>
-            ))
-          }
-        </dl>
-      </div>
-    </section>
+    <h3 id="18+">成人向け作品について</h3>
+    <div class="prose mt-6">
+      <p>
+        R-18、R-18G作品の展示は可能です。<br />
+        その場合は、以下の点にご配慮ください。
+      </p>
+      <ul>
+        <li>年齢制限の明記</li>
+        <li>ワンクッション（注意書き・リンク分け等）の設置</li>
+        <li>ピクリエおよび各種サービスの利用規約を遵守すること</li>
+      </ul>
+    </div>
 
-    <section id="terms">
-      <Heading>規約</Heading>
-      <div class="prose mt-6">
-        <ol class="list-decimal">
-          <li>ほげほげ</li>
-          <li>ふがふが</li>
-        </ol>
+    <h3 id="prohibitions">禁止事項</h3>
+    <p>以下に該当する頒布物・行為はおやめください。</p>
+    <ul>
+      <li>
+        使用許可のないロゴの使用、無断トレスを含んだ創作物、公式画像・公式素材の使用、転載が含まれる頒布物
+      </li>
+      <li>第三者の権利を侵害する可能性のある作品</li>
+      <li>過度な誹謗中傷、差別的表現を含むもの、または発言</li>
+      <li>SideM以外の頒布物が机にある場合（SideMを含む事務所越境作品はOK）</li>
+      <li>ピクリエの利用規約に反する内容</li>
+      <li>その他、主催が不適切と判断したもの</li>
+    </ul>
+
+    <h3 id="notes">注意事項</h3>
+    <p>以下に該当する頒布物・行為はおやめください。</p>
+    <ul>
+      <li>イベント内でトラブルが発生した場合、主催が対応・判断を行います</li>
+      <li>主催判断により、展示内容の修正・非公開をお願いする場合があります</li>
+      <li>ルールとマナーを守り、楽しいイベント運営にご協力ください</li>
+    </ul>
+
+    <h2 id="contact">お問い合わせ</h2>
+    <div class="prose mt-6">
+      <p>不明点・トラブル等がありましたら、主催までご連絡ください。</p>
+      <div class="flex flex-wrap items-center gap-3">
+        <Button href="mailto:sidemisskey315@gmail.com" class="no-underline">
+          メールで問い合わせる
+        </Button>
+        {
+          config.social.map(({ label, href, src }) => (
+            <a href={href} class="aspect-square h-auto w-10">
+              <Image src={src} alt={label} class="size-10 object-contain" />
+            </a>
+          ))
+        }
       </div>
-    </section>
+    </div>
   </div>
 </Layout>

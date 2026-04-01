@@ -3,13 +3,12 @@ import { Image } from 'astro:assets'
 
 import { twMerge } from 'tailwind-merge'
 
-import hero from '@/images/hero.png'
+import hero from '@/images/hero.jpg'
 import logo from '@/images/logo.svg'
 ---
 
 <div
-  class="js-trigger-totop relative mx-auto w-full max-w-(--max-width) place-content-center overflow-clip"
-  style={{ '--max-width': `${hero.width / 2}px` }}>
+  class="js-trigger-totop relative mx-auto place-content-center overflow-clip">
   <Image
     src={hero}
     alt=""

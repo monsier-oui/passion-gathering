@@ -10,25 +10,39 @@ export const config = {
     {
       label: 'イベントについて',
       href: '/#about',
+      items: [
+        {
+          label: '参加対象',
+          href: '/#requirements',
+        },
+        {
+          label: '成人向け作品について',
+          href: '/#18+',
+        },
+        {
+          label: '禁止事項',
+          href: '/#prohibitions',
+        },
+        {
+          label: '注意事項',
+          href: '/#notes',
+        },
+      ],
     },
     {
-      label: 'イベント概要',
-      href: '/#outline',
-    },
-    {
-      label: '規約',
-      href: '/#terms',
+      label: 'お問い合わせ',
+      href: '/#contact',
     },
   ],
   social: [
     {
-      label: 'さいどみすきー運営アカウント',
-      href: 'https://side.misskey.productions/@sidemisskey',
+      label: 'さいどみすきーアカウント',
+      href: 'https://side.misskey.productions/@Pgathering315',
       src: sidemisskeyIcon,
     },
     {
       label: 'Xアカウント',
-      href: 'https://x.com/side_misskey',
+      href: 'https://x.com/Pgathering315',
       src: xIcon,
     },
   ],

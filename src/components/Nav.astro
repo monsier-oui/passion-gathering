@@ -11,33 +11,42 @@ const { menu, social } = config
 <div x-data="nav()">
   <nav
     id="nav-menu"
-    class="bg-white px-5 py-12 transition-[opacity,visibility] transition-discrete aria-hidden:invisible aria-hidden:opacity-0 max-sm:fixed max-sm:inset-0 sm:px-8"
+    class="max-grail:fixed max-grail:inset-0 grail:px-8 max-grail:transition-[opacity,translate,visibility] max-grail:transition-discrete max-grail:duration-500 bg-white px-5 py-12 aria-hidden:invisible aria-hidden:-translate-y-full aria-hidden:opacity-0"
     aria-label="ナビゲーションメニュー"
     x-bind:aria-hidden="!isOpen"
     aria-hidden="true"
     x-bind:data-scroll-lock="isOpen">
     <ul class="">
       {
-        menu.map(({ label, href }) => (
+        menu.map(({ label, href, items }) => (
           <li class="">
             {href && (
-              <a href={href} class="block py-2">
-                {label}
-              </a>
+              <Fragment>
+                <a href={href} class="block py-2">
+                  {label}
+                </a>
+                {items && items.length > 0 && (
+                  <ul class="ml-4">
+                    {items.map(({ label, href }) => (
+                      <li class="">
+                        <a href={href} class="block py-2">
+                          {label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </Fragment>
             )}
           </li>
         ))
       }
     </ul>
-    <ul
-      class="mt-4 grid grid-cols-[repeat(auto-fill,calc(var(--spacing)*10))] gap-x-2">
+    <ul class="mt-4 flex flex-wrap gap-2">
       {
         social.map(({ label, href, src }) => (
           <li>
-            <a
-              href={href}
-              aria-label={label}
-              class="block aspect-square h-auto w-full rounded-sm">
+            <a href={href} aria-label={label} class="block aspect-square w-10">
               <Image src={src} alt="" class="size-full object-contain" />
             </a>
           </li>
@@ -51,7 +60,7 @@ const { menu, social } = config
     x-bind:aria-expanded="isOpen"
     aria-controls="nav-menu"
     aria-label="isOpen ? 'メニューを閉じる' : 'メニューを開く'"
-    class="group fixed top-0 right-0 grid size-12 cursor-pointer place-content-center lg:hidden">
+    class="group grail:hidden fixed top-0 right-0 grid size-12 cursor-pointer place-content-center">
     <Bars3Icon className="size-7.5 group-aria-expanded:hidden" />
     <XMarkIcon className="hidden size-7.5 group-aria-expanded:block" />
   </button>
@@ -64,7 +73,7 @@ const { menu, social } = config
       init() {
         const root = document.documentElement
         const breakpoint = getComputedStyle(root)
-          .getPropertyValue('--breakpoint-sm')
+          .getPropertyValue('--breakpoint-grail')
           .trim()
         const mediaQuery = window.matchMedia(`(min-width: ${breakpoint})`)
         const setMenuVisibility = (mediaQuery) => {

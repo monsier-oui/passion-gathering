@@ -4,6 +4,7 @@
 @theme {
   --breakpoint-xs: 26.5625rem;
   --breakpoint-2xl: 90rem;
+  --breakpoint-grail: 64rem;
 
   --color-gray-50: var(--color-neutral-50);
   --color-gray-100: var(--color-neutral-100);

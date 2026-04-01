@@ -63,9 +63,9 @@ const LogoElement = pathname === '/' ? 'h1' : 'span'
     </div>
     <div class="@container mx-auto max-w-screen-2xl overflow-x-clip">
       <div
-        class="relative grid grid-flow-dense items-start md:grid-cols-[1fr_var(--spacing-main)_1fr]">
+        class="max-grail:mt-10 grail:grid-cols-[1fr_var(--spacing-main)_1fr] relative grid grid-flow-dense items-start gap-y-10">
         <LogoElement
-          class="@3xl:sticky @3xl:top-0 @3xl:translate-y-[calc(50vh-50%)] @3xl:px-[3cqi]">
+          class="grail:sticky grail:top-0 grail:translate-y-[calc(50vh-50%)] grail:p-[3cqi]">
           <a href="/">
             <Image
               src={logo}
@@ -75,15 +75,15 @@ const LogoElement = pathname === '/' ? 'h1' : 'span'
           </a>
         </LogoElement>
         <div
-          class="@3xl:sticky @3xl:top-0 @3xl:-col-end-1 @3xl:translate-y-[calc(50vh-50%)] @3xl:px-[3cqi]">
+          class="grail:sticky grail:top-0 grail:-col-end-1 grail:translate-y-[calc(50vh-50%)] grail:px-[3cqi] max-grail:fixed">
           <Nav />
         </div>
         <main
           class="min-h-screen bg-white px-[clamp(calc(var(--spacing)*5),3cqi,calc(var(--spacing)*10))] py-10">
           <slot />
         </main>
-        <Footer class="@3xl:col-start-2" />
-        <ToTop class="@3xl:-col-end-1" />
+        <Footer class="grail:col-start-2" />
+        <ToTop class="grail:-col-end-1" />
       </div>
     </div>
   </body>

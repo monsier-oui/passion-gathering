@@ -12,10 +12,10 @@ const { class: className } = Astro.props
   id="to-top"
   href="#top"
   class={twMerge(
-    'sticky bottom-0 py-2 ml-auto flex flex-col items-center gap-y-2 h-fit w-fit translate-y-(--y) transition-transform ease-in-out duration-700',
+    'sticky bottom-0 p-2 ml-auto flex flex-col items-center gap-y-2 h-fit w-fit translate-x-(--x) transition-transform ease-in-out duration-700',
     className
   )}
-  style={{ '--y': '100%' }}>
+  style={{ '--x': '100%' }}>
   <span class="bg-primary relative rounded-full px-2 py-1.5 text-xs text-white">
     上へ戻ります
     <span
@@ -33,16 +33,16 @@ const { class: className } = Astro.props
 
     const trigger = document.querySelector('.js-trigger-totop')
     if (!trigger) {
-      toTop.style.setProperty('--y', '0')
+      toTop.style.setProperty('--x', '0')
 
       return
     }
 
     const io = new IntersectionObserver((entries) => {
       if (!entries[0].isIntersecting) {
-        toTop.style.setProperty('--y', '0')
+        toTop.style.setProperty('--x', '0')
       } else {
-        toTop.style.setProperty('--y', '100%')
+        toTop.style.setProperty('--x', '100%')
       }
     })
     io.observe(trigger)
