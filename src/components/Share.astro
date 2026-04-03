@@ -1,0 +1,66 @@
+---
+import { Image } from 'astro:assets'
+
+import { twMerge } from 'tailwind-merge'
+
+import blueskyIcon from '@/images/icon-bluesky.svg'
+import mastodonIcon from '@/images/icon-mastodon.svg'
+import misskeyIcon from '@/images/icon-misskey.png'
+import xIcon from '@/images/icon-x.svg'
+
+interface Props {
+  title: string
+  url: string
+  class?: string
+}
+
+const { title, url, class: className } = Astro.props
+---
+
+<div class="flex flex-wrap items-center justify-center gap-x-3">
+  {
+    Astro.slots.has('label') && (
+      <p class="relative shrink rounded-sm bg-gray-200 px-2 py-1 text-xs">
+        <slot name="label" />
+        <span
+          class="absolute inset-y-0 left-full m-auto block size-2 bg-inherit"
+          style="clip-path: polygon(0 0, 100% 50%, 0 100%)"
+          aria-hidden="true"
+        />
+      </p>
+    )
+  }
+  <div class={twMerge('flex flex-wrap items-center gap-1', className)}>
+    {
+      [
+        {
+          href: `https://misskeyshare.link/share.html?text=${encodeURI(title)}&url=${encodeURI(url)}`,
+          src: misskeyIcon,
+          label: 'Misskeyでシェア',
+        },
+        {
+          href: `https://donshare.net/share.html?text=${encodeURI(title)}&url=${encodeURI(url)}`,
+          src: mastodonIcon,
+          label: 'Mastodonでシェア',
+        },
+        {
+          href: `https://bsky.app/intent/compose?text=${encodeURI(title)}%0a${encodeURI(url)}`,
+          src: blueskyIcon,
+          label: 'Blueskyでシェア',
+        },
+        {
+          href: `https://twitter.com/intent/tweet?text=${encodeURI(title)}&url=${encodeURI(url)}`,
+          src: xIcon,
+          label: 'Xでシェア',
+        },
+      ].map(({ href, src }) => (
+        <a
+          href={href}
+          target="_blank"
+          class="inline-grid size-12 place-content-center rounded-full bg-white p-3">
+          <Image src={src} alt="" class="" />
+        </a>
+      ))
+    }
+  </div>
+</div>

@@ -3,23 +3,16 @@ import { Image } from 'astro:assets'
 
 import { twMerge } from 'tailwind-merge'
 
+import Share from '@/components/Share.astro'
 import { config } from '@/config'
 import logo from '@/images/logo.svg'
 
 const { class: className } = Astro.props
 ---
 
-<footer class={twMerge('relative text-center', className)}>
-  <Image src={logo} alt={config.siteMetadata.name} class="mx-auto max-w-40" />
-  <nav
-    class="mt-5 flex items-center justify-center gap-x-4"
-    aria-label="ナビゲーションリンク">
-    {
-      config.menu.map(({ label, href }) => (
-        <a href={href} class="">
-          {label}
-        </a>
-      ))
-    }
-  </nav>
+<footer class={twMerge('grid place-items-center gap-y-8', className)}>
+  <Image src={logo} alt={config.siteMetadata.name} class="max-w-40" />
+  <Share title={config.siteMetadata.name} url={Astro.site?.origin ?? ''}>
+    <Fragment slot="label">シェアする</Fragment>
+  </Share>
 </footer>
