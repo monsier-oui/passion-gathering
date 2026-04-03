@@ -10,24 +10,6 @@ export const config = {
     {
       label: 'イベントについて',
       href: '/#about',
-      items: [
-        {
-          label: '参加対象',
-          href: '/#requirements',
-        },
-        {
-          label: '成人向け作品について',
-          href: '/#18+',
-        },
-        {
-          label: '禁止事項',
-          href: '/#prohibitions',
-        },
-        {
-          label: '注意事項',
-          href: '/#notes',
-        },
-      ],
     },
     {
       label: 'お問い合わせ',
