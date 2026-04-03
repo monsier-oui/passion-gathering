@@ -21,6 +21,7 @@
 
   --color-primary: oklch(0.7661 0.1213 178.04);
   --color-primary-light: oklch(94.118% 0.05361 181.923);
+  --color-secondary: oklch(0.51 0.211753 260.3208);
 
   --spacing-main: clamp(var(--breakpoint-xs), 40cqi, var(--breakpoint-sm));
 
@@ -77,5 +78,14 @@
     * {
       @apply first:mt-0 last:mb-0;
     }
+  }
+
+  .bg-plaid {
+    background-color: var(--color-gray-100);
+    background-image:
+      linear-gradient(90deg, var(--color-secondary) 1px, transparent 1px),
+      linear-gradient(var(--color-secondary) 1px, transparent 1px);
+    background-position: 50% 50%;
+    background-size: 50px 50px;
   }
 }
