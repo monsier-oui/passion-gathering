@@ -30,11 +30,10 @@ const props = {
       {dayjs(post.createdAt).format(config.format.datetime)}
     </time>
   </header>
-  <article class="prose my-10">
+  <article class="prose my-15">
     <div set:html={post.content} />
   </article>
   <footer class="flex flex-wrap justify-center gap-x-2 gap-y-4">
-    <Button href="/news" class="">全てのお知らせを見る</Button>
     <Button href="/news" size="lg">全てのお知らせを見る</Button>
     <Share
       title={`${post.title} - ${config.siteMetadata.name}`}
