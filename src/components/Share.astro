@@ -53,11 +53,12 @@ const { title, url, class: className } = Astro.props
           src: xIcon,
           label: 'Xでシェア',
         },
-      ].map(({ href, src }) => (
+      ].map(({ href, src, label }) => (
         <a
           href={href}
           target="_blank"
-          class="inline-grid size-12 place-content-center rounded-full bg-white p-3">
+          class="inline-grid size-12 place-content-center rounded-full bg-white p-3"
+          aria-label={label}>
           <Image
             src={src}
             alt=""
