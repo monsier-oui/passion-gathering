@@ -12,7 +12,7 @@ const { menu, social } = config
 <div x-data="nav()">
   <nav
     id="nav-menu"
-    class="group max-grail:fixed max-grail:inset-0 max-grail:z-40 max-grail:bg-black/20 max-grail:backdrop-blur-xs max-h-dvh overflow-auto py-10 transition-[background-color,backdrop-filter] duration-500 ease-in-out aria-hidden:bg-transparent aria-hidden:backdrop-blur-[0]"
+    class="group max-grail:fixed max-grail:inset-0 max-grail:z-40 max-grail:bg-black/20 max-grail:backdrop-blur-xs max-h-dvh overflow-auto py-10 transition-[visibility,background-color,backdrop-filter] transition-discrete duration-500 ease-in-out aria-hidden:invisible aria-hidden:bg-transparent aria-hidden:backdrop-blur-[0]"
     aria-label="ナビゲーションメニュー"
     x-bind:aria-hidden="!isOpen"
     aria-hidden="true"
@@ -49,7 +49,12 @@ const { menu, social } = config
         social.map(({ label, href, src }) => (
           <li>
             <a href={href} aria-label={label} class="block aspect-square w-10">
-              <Image src={src} alt="" class="size-full object-contain" />
+              <Image
+                src={src}
+                alt=""
+                format={src.format === 'svg' ? 'svg' : 'webp'}
+                class="size-full object-contain"
+              />
             </a>
           </li>
         ))

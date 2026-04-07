@@ -58,7 +58,12 @@ const { title, url, class: className } = Astro.props
           href={href}
           target="_blank"
           class="inline-grid size-12 place-content-center rounded-full bg-white p-3">
-          <Image src={src} alt="" class="" />
+          <Image
+            src={src}
+            alt=""
+            format={src.format === 'svg' ? 'svg' : 'webp'}
+            class=""
+          />
         </a>
       ))
     }

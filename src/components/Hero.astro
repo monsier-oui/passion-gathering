@@ -3,6 +3,7 @@ import { Image } from 'astro:assets'
 
 import { twMerge } from 'tailwind-merge'
 
+import CTA from '@/components/CTA.astro'
 import hero from '@/images/hero.jpg'
 import logo from '@/images/logo.svg'
 ---
@@ -11,6 +12,7 @@ import logo from '@/images/logo.svg'
   class="js-trigger-totop relative mx-auto place-content-center overflow-clip">
   <Image
     src={hero}
+    format="webp"
     alt=""
     width={hero.width}
     height={hero.height}
@@ -21,33 +23,43 @@ import logo from '@/images/logo.svg'
     class="mx-auto h-screen w-full object-cover sm:aspect-35/25 sm:h-auto"
   />
   <div
-    id="sd-random"
-    class="@container absolute inset-0 m-auto h-full w-full sm:aspect-3/4 sm:w-auto">
-    {
-      Array.from({ length: 3 }).map((_, i) => (
-        <div
-          class={twMerge(
-            'absolute aspect-square h-auto w-[30cqi]',
-            i === 0 && 'top-1/5 left-0 -rotate-16',
-            i === 1 && 'top-1/2 right-0 -translate-y-1/2',
-            i === 2 && 'bottom-1/5 left-0 rotate-16'
-          )}>
+    class="absolute inset-0 grid h-full grid-rows-[auto_1fr_auto] sm:contents">
+    <Image
+      src={logo}
+      alt=""
+      loading="eager"
+      fetchpriority="high"
+      class="w-[40cqi] p-3 sm:absolute sm:top-0 sm:left-0 sm:w-[min(20cqi,var(--container-3xs))]"
+    />
+    <div
+      id="sd-random"
+      class="@container relative w-full max-sm:mt-[10%] sm:absolute sm:inset-0 sm:m-auto sm:aspect-3/4 sm:h-full sm:w-auto">
+      {
+        Array.from({ length: 3 }).map((_, i) => (
           <div
-            class="animate-pitter-patter"
-            style={{ animationDelay: `${i * 100}ms` }}>
-            <img alt="" class="animate-swaying" />
+            class={twMerge(
+              'absolute aspect-square h-auto w-[clamp(150px,40cqi,250px)]',
+              i === 0 && 'top-1/12 left-[2cqi] -rotate-16',
+              i === 1 && 'top-1/2 right-[-2cqi] -translate-y-1/4',
+              i === 2 && 'bottom-1/12 left-[-2cqi] rotate-16'
+            )}>
+            <div
+              class="animate-pitter-patter"
+              style={{ animationDelay: `${i * 100}ms` }}>
+              <img
+                alt=""
+                class="animate-swaying"
+                style={{ animationDelay: `${(i % 3) * 100}ms` }}
+              />
+            </div>
           </div>
-        </div>
-      ))
-    }
+        ))
+      }
+    </div>
+    <CTA
+      class="max-sm:m-4 max-sm:justify-self-center sm:absolute sm:right-4 sm:bottom-4"
+    />
   </div>
-  <Image
-    src={logo}
-    alt=""
-    loading="eager"
-    fetchpriority="high"
-    class="absolute top-0 left-0 w-[40cqi] p-3 sm:w-[min(20cqi,var(--container-3xs))]"
-  />
 </div>
 
 <script>

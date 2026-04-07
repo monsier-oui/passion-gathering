@@ -8,6 +8,10 @@ export const config = {
   },
   menu: [
     {
+      label: 'トップページ',
+      href: '/',
+    },
+    {
       label: 'イベントについて',
       href: '/#about',
     },

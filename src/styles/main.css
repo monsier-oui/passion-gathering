@@ -68,6 +68,10 @@
       @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400;
     }
   }
+
+  html {
+    @apply scroll-pt-12;
+  }
 }
 
 @layer utility {

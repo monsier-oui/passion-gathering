@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets'
 
 import Button from '@/components/Button.astro'
+import CTA from '@/components/CTA.astro'
 import Hero from '@/components/Hero.astro'
 import NewsList from '@/components/NewsList.astro'
 import { config } from '@/config'
@@ -37,10 +38,15 @@ const latestNews = (await getNewsPosts()).slice(0, 3)
       />
       なお、さいどみすきーの利用有無に関わらず、どなたでもご参加いただけます。<br
       />
-      <Button href="https://side.misskey.productions" class="mt-4 no-underline">
+    </p>
+    <div class="mt-4 flex flex-wrap gap-3">
+      <Button href="https://docs.side.misskey.productions">
+        さいどみすきーについて知る
+      </Button>
+      <Button href="https://side.misskey.productions">
         さいどみすきーを見る
       </Button>
-    </p>
+    </div>
 
     <h3 id="requirements">参加対象</h3>
     <p>以下の内容であればご参加いただけます。</p>
@@ -48,33 +54,19 @@ const latestNews = (await getNewsPosts()).slice(0, 3)
       <li>『アイドルマスター SideM』の二次創作作品</li>
       <li>漫画、イラスト、小説、考察・評論、Web展示作品、ハンドメイド など</li>
       <li>
-        カップリング指定のある作品も参加可能です
-        <ul>
-          <li>
-            カップリングの有無は問いません（オールキャラ、ユニット、単体、カップリング作品すべて可）
-          </li>
-        </ul>
+        カップリング指定のある作品も参加可能です。カップリングの有無は問いません（オールキャラ、ユニット、単体、カップリング作品すべて可）
       </li>
       <li>
-        プチオンリーの実施OK
-        <ul>
-          <li>
-            サークル内企画、テーマ展示など、常識の範囲内で自由に行っていただいて構いません
-          </li>
-          <li>
-            プチオンリーの応募はこちらのフォームからお願いします。<br />
-            <Button
-              href="https://docs.google.com/forms/d/e/1FAIpQLSeEYO5Q2DW4AUxdR8CgiPKbthwvA02-MgdcPGVw4k80zQyIZA/viewform?usp=sharing&ouid=110556796894377316623"
-              class="mt-4 no-underline">
-              プチオンリー応募フォーム
-            </Button>
-          </li>
-        </ul>
+        プチオンリーの実施OK。サークル内企画、テーマ展示など、常識の範囲内で自由に行っていただいて構いません。<br
+        />
+        プチオンリーの応募はこちらのフォームからお願いします。<br />
+        <Button
+          href="https://docs.google.com/forms/d/e/1FAIpQLSeEYO5Q2DW4AUxdR8CgiPKbthwvA02-MgdcPGVw4k80zQyIZA/viewform?usp=sharing&ouid=110556796894377316623"
+          class="mt-4 no-underline">
+          プチオンリー応募フォーム
+        </Button>
       </li>
     </ul>
-    <p>
-      また、主催・運営母体である「さいどみすきー」に関連したネタ・表現についても、SideM二次創作の範囲内であれば問題ありません。
-    </p>
 
     <h3 id="18+">成人向け作品について</h3>
     <div class="prose mt-6">
@@ -103,28 +95,36 @@ const latestNews = (await getNewsPosts()).slice(0, 3)
     </ul>
 
     <h3 id="notes">注意事項</h3>
-    <p>以下に該当する頒布物・行為はおやめください。</p>
     <ul>
-      <li>イベント内でトラブルが発生した場合、主催が対応・判断を行います</li>
-      <li>主催判断により、展示内容の修正・非公開をお願いする場合があります</li>
+      <li>イベント内でトラブルが発生した場合、主催が対応・判断を行います。</li>
+      <li>
+        主催判断により、展示内容の修正・非公開をお願いする場合があります。
+      </li>
       <li>ルールとマナーを守り、楽しいイベント運営にご協力ください</li>
     </ul>
 
+    <div class="my-10 flex justify-center">
+      <CTA />
+    </div>
+
     <h2 id="contact">お問い合わせ</h2>
-    <div class="prose mt-6">
-      <p>不明点・トラブル等がありましたら、主催までご連絡ください。</p>
-      <div class="flex flex-wrap items-center gap-3">
-        <Button href="mailto:sidemisskey315@gmail.com" class="no-underline">
-          メールで問い合わせる
-        </Button>
-        {
-          config.social.map(({ label, href, src }) => (
-            <a href={href} class="aspect-square h-auto w-10">
-              <Image src={src} alt={label} class="size-10 object-contain" />
-            </a>
-          ))
-        }
-      </div>
+    <p>不明点・トラブル等がありましたら、主催までご連絡ください。</p>
+    <div class="flex flex-wrap items-center gap-3">
+      <Button href="mailto:sidemisskey315@gmail.com">
+        メールで問い合わせる
+      </Button>
+      {
+        config.social.map(({ label, href, src }) => (
+          <a href={href} class="aspect-square h-auto w-10">
+            <Image
+              src={src}
+              alt={label}
+              format={src.format === 'svg' ? 'svg' : 'webp'}
+              class="size-10 object-contain"
+            />
+          </a>
+        ))
+      }
     </div>
   </div>
 </Layout>
