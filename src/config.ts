@@ -16,6 +16,10 @@ export const config = {
       href: '/#about',
     },
     {
+      label: 'ギャラリー',
+      href: '/gallery',
+    },
+    {
       label: 'お問い合わせ',
       href: '/#contact',
     },

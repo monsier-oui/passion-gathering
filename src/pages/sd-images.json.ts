@@ -1,17 +1,12 @@
 import type { APIRoute } from 'astro'
 
-const modules = import.meta.glob<{ default: { src: string } }>(
-  '/src/images/sd/*.png',
-  {
-    eager: true,
-  }
-)
-
-const urls = Object.values(modules)
-  .filter((m) => !m?.default?.src.includes('50-ken'))
-  .map((m) => m.default.src)
+import images from '@/libs/sds'
 
 export const GET = (() => {
+  const urls = images
+    .map(({ src }) => src)
+    .filter((src) => !src.includes('50-ken'))
+
   return new Response(JSON.stringify(urls), {
     headers: { 'Content-Type': 'application/json' },
   })
