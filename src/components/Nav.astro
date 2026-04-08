@@ -31,11 +31,15 @@ const { menu, social } = config
               <a
                 href={href}
                 class={twMerge(
-                  'grail:text-lg inline-block bg-linear-to-l from-[calc(var(--spacing)*5)] to-white to-[calc(var(--spacing)*5)] px-10 py-2.5',
+                  'grail:text-lg inline-block bg-linear-to-l to-white px-10 py-2.5',
                   i % 3 === 0 && '-rotate-3 from-[oklch(0.86_0.07_38.59)]', // フィジカル
                   i % 3 === 1 && 'rotate-1 from-[oklch(0.9_0.06_221.89)]', // インテリ
                   i % 3 === 2 && '-rotate-1 from-[oklch(0.97_0.11_106.08)]' // メンタル
-                )}>
+                )}
+                style={{
+                  '--tw-gradient-from-position': 'calc(var(--spacing)*5)',
+                  '--tw-gradient-to-position': 'calc(var(--spacing)*5)',
+                }}>
                 {label}
               </a>
             )}

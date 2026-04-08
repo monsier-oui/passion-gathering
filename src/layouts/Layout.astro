@@ -79,7 +79,7 @@ const LogoElement = pathname === '/' ? 'h1' : 'span'
           <Nav />
         </div>
         <main
-          class="min-h-screen bg-white px-[clamp(calc(var(--spacing)*5),3cqi,calc(var(--spacing)*10))] py-10">
+          class="min-h-screen bg-white px-[clamp(--spacing(5),3cqi,--spacing(10))] py-10">
           <slot />
         </main>
         <Footer class="grail:col-start-2" />
