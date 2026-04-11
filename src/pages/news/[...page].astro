@@ -16,7 +16,7 @@ export const getStaticPaths = async ({ paginate }: GetStaticPathsOptions) => {
 const { page } = Astro.props
 ---
 
-<Layout>
+<Layout title="お知らせ">
   <NewsList posts={page.data} />
   <Pagination path="/news" page={page} />
 </Layout>

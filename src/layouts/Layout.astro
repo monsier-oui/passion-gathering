@@ -32,7 +32,7 @@ const LogoElement = pathname === '/' ? 'h1' : 'span'
     <meta name="viewport" content="width=device-width" />
     <SEO
       title={title}
-      titleTemplate=`%s | ${config.siteMetadata.name}`
+      titleTemplate=`%s - ${config.siteMetadata.name}`
       titleDefault={config.siteMetadata.name}
       description={description || config.siteMetadata.description}
       canonical={Astro.site?.origin + Astro.url.pathname}
@@ -51,9 +51,11 @@ const LogoElement = pathname === '/' ? 'h1' : 'span'
         },
       }}
       twitter={{
+        card: 'summary_large_image',
+        site: Astro.site?.origin,
         creator: '@Pgathering315',
-        card: 'summary',
         title,
+        image: `${Astro.site?.origin}/ogp-lg.png`,
       }}
     />
   </head>
