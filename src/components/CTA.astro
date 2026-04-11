@@ -3,12 +3,13 @@ import { ArrowRightIcon } from '@heroicons/react/24/outline'
 import { twMerge } from 'tailwind-merge'
 
 import Button from '@/components/Button.astro'
+import { config } from '@/config'
 
 const { class: className } = Astro.props
 ---
 
 <Button
-  href="https://picrea.jp"
+  href={config.entry}
   size="lg"
   class={twMerge(
     'w-fit border-4 border-white transition-[scale,box-shadow] duration-500 hover:scale-105 hover:shadow',
