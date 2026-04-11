@@ -12,10 +12,13 @@ const heroWebp = await getImage({ src: hero, format: 'webp' })
 ---
 
 <Layout title="ギャラリー">
-  <div class="prose prose-h2:mt-20 prose-h3:mt-15 mt-20">
+  <div class="prose prose-h2:mt-20 prose-h3:mt-15">
     <h1>ギャラリー</h1>
     <p>
       本イベントを開催するにあたり、下記の方々にお力添えいただきました。この場を借りて感謝を申し上げます。
+    </p>
+    <p>
+      作成者の皆さんのご厚意により掲載しております。画像の転載や二次利用、AI学習などを固く禁じます。
     </p>
 
     <h2>ロゴデザイン</h2>
@@ -34,16 +37,18 @@ const heroWebp = await getImage({ src: hero, format: 'webp' })
 
     <h2>ミニキャライラスト</h2>
     <p><a href="https://side.misskey.productions/@miyase387">みやせ</a>さん</p>
-    <div
+    <ul
       class="not-prose grid grid-cols-[repeat(auto-fill,minmax(120px,1fr))] gap-4">
       {
         images.map(({ src, width, height }) => (
-          <a href={src} data-lightbox="sd">
-            <Image src={src} alt="" width={width} height={height} class="" />
-          </a>
+          <li>
+            <a href={src} data-lightbox="sd">
+              <Image src={src} alt="" width={width} height={height} class="" />
+            </a>
+          </li>
         ))
       }
-    </div>
+    </ul>
   </div>
 </Layout>
 

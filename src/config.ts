@@ -6,7 +6,8 @@ export const config = {
     name: 'P@ssion Gathering（パッション・ギャザリング）',
     description: 'アイドルマスターSideM非公式オンリーオンライン同人誌即売会',
   },
-  entry: 'https://picrea.jp',
+  entry:
+    'https://picrea.jp/event/df33710fdefd14a5117159cb74c10e74d0f403d355a2f29a2a74d17499fbb60f',
   menu: [
     {
       label: 'トップページ',
