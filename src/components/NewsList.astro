@@ -24,8 +24,8 @@ const { posts, class: className } = Astro.props
         <a href={`/news/${post.id}/`} class="hover:underline">
           {post.title}
         </a>
-        <time class="" datetime={post.createdAt}>
-          {dayjs(post.createdAt).format(config.format.date)}
+        <time class="" datetime={post.publishedAt}>
+          {dayjs(post.publishedAt).format(config.format.date)}
         </time>
       </li>
     ))

@@ -26,8 +26,8 @@ const props = {
 <Layout {...props}>
   <header class="">
     <h1 class="text-2xl font-semibold">{post.title}</h1>
-    <time datetime={post.createdAt} class="mt-4 block text-sm text-gray-700">
-      {dayjs(post.createdAt).format(config.format.datetime)}
+    <time datetime={post.publishedAt} class="mt-4 block text-sm text-gray-700">
+      {dayjs(post.publishedAt).format(config.format.datetime)}
     </time>
   </header>
   <article class="prose my-15">
