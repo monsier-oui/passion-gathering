@@ -25,7 +25,9 @@ const { posts, class: className } = Astro.props
           {post.title}
         </a>
         <time class="" datetime={post.publishedAt}>
-          {dayjs(post.publishedAt).format(config.format.date)}
+          {dayjs
+            .tz(post.publishedAt, config.timezone)
+            .format(config.format.date)}
         </time>
       </li>
     ))

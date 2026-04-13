@@ -43,4 +43,5 @@ export const config = {
     date: 'YYYY/MM/DD',
     datetime: 'YYYY/MM/DD HH:mm',
   },
+  timezone: 'Asia/Tokyo',
 }
