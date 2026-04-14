@@ -18,7 +18,11 @@ export const getStaticPaths = async () => {
 const { post } = Astro.props
 const props = {
   title: post.title,
-  ogp: { type: 'article' },
+  openGraph: {
+    basic: {
+      type: 'article',
+    },
+  },
 }
 ---
 

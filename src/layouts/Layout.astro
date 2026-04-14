@@ -2,6 +2,7 @@
 import '@/styles/main.css'
 import { Image } from 'astro:assets'
 
+import type { ComponentProps } from 'astro/types'
 import { SEO } from 'astro-seo'
 
 import Footer from '@/components/Footer.astro'
@@ -10,19 +11,56 @@ import ToTop from '@/components/ToTop.astro'
 import { config } from '@/config'
 import logo from '@/images/logo.svg'
 
-export interface Props {
-  title?: string
-  description?: string
-  ogp?: {
-    type?: string
-    image?: string
-    url?: string
+type SEOProps = ComponentProps<typeof SEO>
+type OpenGraphProps = NonNullable<SEOProps['openGraph']>
+export type Props = Omit<SEOProps, 'openGraph'> & {
+  openGraph?: Partial<Omit<OpenGraphProps, 'basic'>> & {
+    basic?: Partial<OpenGraphProps['basic']>
   }
 }
 
-const { title = '', description = '', ogp = {} } = Astro.props
+const {
+  title = '',
+  description = config.siteMetadata.description,
+  ...props
+} = Astro.props
 const { pathname } = Astro.url
 const LogoElement = pathname === '/' ? 'h1' : 'span'
+
+const siteOrigin = Astro.site?.origin ?? ''
+const defaultOGPBasic: OpenGraphProps['basic'] = {
+  title: title || config.siteMetadata.name,
+  type: 'website',
+  image: `${siteOrigin}/ogp.png`,
+  url: siteOrigin + pathname,
+}
+const seoProps: SEOProps = {
+  ...props,
+  title: title || undefined,
+  titleTemplate: props.titleTemplate ?? `%s - ${config.siteMetadata.name}`,
+  titleDefault: props.titleDefault ?? config.siteMetadata.name,
+  description,
+  canonical: props.canonical ?? siteOrigin + pathname,
+  openGraph: {
+    ...props.openGraph,
+    basic: {
+      ...defaultOGPBasic,
+      ...props.openGraph?.basic,
+    },
+    optional: {
+      siteName: config.siteMetadata.name,
+      ...props.openGraph?.optional,
+    },
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: siteOrigin,
+    creator: '@Pgathering315',
+    title,
+    image: `${siteOrigin}/ogp-lg.png`,
+    ...props.twitter,
+  },
+}
 ---
 
 <!doctype html>
@@ -30,34 +68,7 @@ const LogoElement = pathname === '/' ? 'h1' : 'span'
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <SEO
-      title={title}
-      titleTemplate=`%s - ${config.siteMetadata.name}`
-      titleDefault={config.siteMetadata.name}
-      description={description || config.siteMetadata.description}
-      canonical={Astro.site?.origin + Astro.url.pathname}
-      openGraph={{
-        basic: Object.assign(
-          {
-            title,
-            type: 'website',
-            image: `${Astro.site?.origin}/ogp.png`,
-            url: Astro.site?.origin + Astro.url.pathname,
-          },
-          ogp
-        ),
-        optional: {
-          siteName: config.siteMetadata.name,
-        },
-      }}
-      twitter={{
-        card: 'summary_large_image',
-        site: Astro.site?.origin,
-        creator: '@Pgathering315',
-        title,
-        image: `${Astro.site?.origin}/ogp-lg.png`,
-      }}
-    />
+    <SEO {...seoProps} />
   </head>
   <body class="bg-plaid">
     <div class="">
