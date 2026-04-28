@@ -23,7 +23,7 @@
   --color-primary-light: oklch(94.118% 0.05361 181.923);
   --color-secondary: oklch(0.51 0.211753 260.3208);
 
-  --spacing-main: clamp(var(--breakpoint-xs), 40cqi, var(--breakpoint-sm));
+  --spacing-main: clamp(var(--breakpoint-xs), 48cqi, var(--breakpoint-sm));
 
   --animate-swaying: 1.5s steps(1) 0.5s infinite running swaying;
   @keyframes swaying {

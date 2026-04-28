@@ -18,6 +18,10 @@ export const config = {
       href: '/#about',
     },
     {
+      label: 'プチオンリーについて',
+      href: '/petit-only',
+    },
+    {
       label: 'ギャラリー',
       href: '/gallery',
     },

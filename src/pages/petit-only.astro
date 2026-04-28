@@ -1,0 +1,60 @@
+---
+import { Image } from 'astro:assets'
+
+import Button from '@/components/Button.astro'
+import bnrNuiChannel from '@/images/petit-only/bnr-enjoy_mutekino_nuichannel.png'
+import Layout from '@/layouts/Layout.astro'
+
+const list = [
+  {
+    src: bnrNuiChannel,
+    href: 'https://sites.google.com/view/m-nui-channel/',
+    title: 'Enjoy！無敵のぬいちゃんねる おさんぽ出張所',
+  },
+]
+---
+
+<Layout title="プチオンリーについて">
+  <div class="prose prose-h2:mt-20 prose-h3:mt-15">
+    <h1>プチオンリーについて</h1>
+    <p>
+      プチオンリーの実施OK。サークル内企画、テーマ展示など、常識の範囲内で自由に行っていただいて構いません。<br
+      />
+      プチオンリーの応募はこちらのフォームからお願いします。<br />
+      <Button
+        href="https://docs.google.com/forms/d/e/1FAIpQLSeEYO5Q2DW4AUxdR8CgiPKbthwvA02-MgdcPGVw4k80zQyIZA/viewform?usp=sharing&ouid=110556796894377316623"
+        class="mt-4">
+        プチオンリー応募フォーム
+      </Button>
+    </p>
+
+    <h2>プチオンリー参加サークルさまへのご案内</h2>
+    <p>
+      プチオンリー参加サークルさまがお申し込み時、「中心ユニット・アイドル」欄に、併記する形でプチオンリー名の記載をいただけますようアナウンスをお願いいたします。<br
+      />特にサークル配置をまとめてでの希望の際は記載がない場合は、配置時に離れての配置になることがございます。<br
+      />※すでにサークル参加申請済みの方は、6/12
+      0時までに申込内容の編集が必要です。
+    </p>
+
+    <h3>バナーについて</h3>
+    <p>
+      プチオンリー用のバナーがある場合は、イベントサイトへ掲載させていただきます。<br
+      />ヨコ500*タテ100pixelの横長の画像、バナーのリンク先URLのご用意をお願いいたします。
+    </p>
+
+    <h3>プチオンリー一覧</h3>
+    <p>申請順に掲載しています。</p>
+    <ul
+      class="not-prose grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4">
+      {
+        list.map(({ src, href, title }) => (
+          <li class="">
+            <a href={href} target="_blank">
+              <Image src={src} alt={title} />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</Layout>
