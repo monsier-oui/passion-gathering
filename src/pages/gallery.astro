@@ -1,14 +1,11 @@
 ---
-import { Image, getImage } from 'astro:assets'
-
 import 'luminous-lightbox/dist/luminous-basic.css'
 
+import Lightbox from '@/components/Lightbox.astro'
 import hero from '@/images/hero.jpg'
 import logo from '@/images/logo.svg'
 import Layout from '@/layouts/Layout.astro'
 import images from '@/libs/sds'
-
-const heroWebp = await getImage({ src: hero, format: 'webp' })
 ---
 
 <Layout title="ギャラリー">
@@ -23,94 +20,25 @@ const heroWebp = await getImage({ src: hero, format: 'webp' })
 
     <h2>ロゴデザイン</h2>
     <p><a href="https://side.misskey.productions/@42239">42239</a>さん</p>
-    <a href={logo.src} data-lightbox="logo">
-      <Image src={logo} alt="ロゴ" class="" />
-    </a>
+    <Lightbox image={logo} alt="ロゴ" group="logo" />
 
     <h2>キービジュアルイラスト</h2>
     <p>
       <a href="https://side.misskey.productions/@76_game_">鳴瀬ジュン</a>さん
     </p>
-    <a href={heroWebp.src} data-lightbox="hero">
-      <Image src={hero} alt="キービジュアルイラスト" format="webp" class="" />
-    </a>
+    <Lightbox image={hero} alt="キービジュアルイラスト" group="hero" />
 
     <h2>ミニキャライラスト</h2>
     <p><a href="https://side.misskey.productions/@miyase387">みやせ</a>さん</p>
     <ul
       class="not-prose grid grid-cols-[repeat(auto-fill,minmax(120px,1fr))] gap-4">
       {
-        images.map(({ src, width, height }) => (
+        images.map((image) => (
           <li>
-            <a href={src} data-lightbox="sd">
-              <Image src={src} alt="" width={width} height={height} class="" />
-            </a>
+            <Lightbox image={image} group="sd" />
           </li>
         ))
       }
     </ul>
   </div>
 </Layout>
-
-<script>
-  import { LuminousGallery } from 'luminous-lightbox'
-
-  const galleries: Record<string, HTMLElement[]> = {}
-  document
-    .querySelectorAll<HTMLElement>('[data-lightbox]')
-    .forEach((element) => {
-      const group = element.dataset.lightbox
-      if (!group) return
-
-      if (group in galleries) {
-        galleries[group].push(element)
-      } else {
-        galleries[group] = [element]
-      }
-    })
-
-  const scrollCenter = (element: HTMLElement) => {
-    element.scrollIntoView({
-      behavior: 'instant',
-      block: 'center',
-      inline: 'center',
-    })
-  }
-
-  Object.values(galleries).forEach((elements) => {
-    new LuminousGallery(
-      elements,
-      {},
-      {
-        onOpen: () => {
-          const img = document.querySelector<HTMLImageElement>(
-            '.lum-lightbox.lum-open .lum-img'
-          )
-          if (!img) return
-
-          if (img.complete) {
-            scrollCenter(img)
-          } else {
-            img.addEventListener('load', () => scrollCenter(img), {
-              once: true,
-            })
-          }
-        },
-      }
-    )
-  })
-</script>
-
-<style is:global>
-  .lum-lightbox.lum-open {
-    @apply z-50;
-  }
-  .lum-img {
-    @apply mx-auto;
-  }
-  @media (max-width: 460px) {
-    .lum-lightbox-inner img {
-      @apply max-h-[200svh] max-w-[200vw];
-    }
-  }
-</style>
