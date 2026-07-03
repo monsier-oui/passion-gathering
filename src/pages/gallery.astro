@@ -2,6 +2,7 @@
 import 'luminous-lightbox/dist/luminous-basic.css'
 
 import Lightbox from '@/components/Lightbox.astro'
+import curryPanShop from '@/images/gallery/curry-pan-shop.png'
 import hero from '@/images/hero.jpg'
 import logo from '@/images/logo.svg'
 import Layout from '@/layouts/Layout.astro'
@@ -40,5 +41,11 @@ import images from '@/libs/sds'
         ))
       }
     </ul>
+
+    <h2>ピクリエマップ装飾</h2>
+    <p>
+      <a href="https://side.misskey.productions/@Ral ">ラル</a>さん
+    </p>
+    <Lightbox image={curryPanShop} alt="カレーパン屋台" group="map" />
   </div>
 </Layout>
